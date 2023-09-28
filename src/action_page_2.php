@@ -21,7 +21,7 @@
                      echo "The user not be found.";
               }
        ?>
-
+vdvsv
 
        <nav>
        <form action="category/LP.php"><input type="submit" value ="Learning processes" name="LP"  class="btn btn-outline-primary"><hr></form>
