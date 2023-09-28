@@ -1,7 +1,28 @@
 <?php include('header.php'); ?>
+
 <?php
-       
-?>
+       if ( isset( $_POST["Login"] ) ) 
+       {
+              $email = $_POST['email'];
+              $pass = $_POST['pass'];
+              include 'db.php';
+              $sql = "SELECT * FROM sheet1 WHERE Email = $email ;";
+              $result = $connection ->query($sql);
+              if($result->num_rows > 0 )
+              {
+                     while ($row = mysqli_fetch_assoc($result)) {
+                            echo "Email: " . $row["Email"] . "<br>";
+                            }
+                     } else {
+                            echo "The user not be found.";
+                     }
+              }
+              else{
+                     echo "The user not be found.";
+              }
+       ?>
+
+
        <nav>
        <form action="category/LP.php"><input type="submit" value ="Learning processes" name="LP"  class="btn btn-outline-primary"><hr></form>
        <form action="category/LE.php"><input type="submit" value ="Learning environment" name="LE"  class="btn btn-outline-danger"><hr></form>
