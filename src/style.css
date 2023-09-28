@@ -3,12 +3,12 @@ body, html {
        margin: 0;
        padding: 0;
        height: 100%;
-     }
-     
-     /* Global styles */
-     body {
+       }
+
+body {
        font-family: Arial, sans-serif;
        background-color: #333;
+       background-image: url("image/background.jpg");
        color: #fff;
        display: flex;
        flex-direction: column;
@@ -16,14 +16,12 @@ body, html {
        text-align: center;
        margin: 0;
        min-height: 100vh; /* Make sure the body covers the full viewport height */
-     }
-     
-
-
-       h4{
-              text-align: center;
        }
-       
+
+h4{
+       text-align: center;
+       }
+
 .row {
        text-align: center;
        display: flex;
@@ -39,11 +37,9 @@ body, html {
        padding: 100px;
        background-color: rgb(95, 95, 95);
        width: 100%;
-     }
-     
- 
-     
-     footer {
+       }
+
+footer {
        background-color: rgb(25, 21, 21);
        text-align: center;
        padding: 45px;
@@ -52,7 +48,7 @@ body, html {
        align-items: center;
        justify-content: center;
        }
-       
+
 button {
        padding: 10px 40px; 
        margin: 50px; 
