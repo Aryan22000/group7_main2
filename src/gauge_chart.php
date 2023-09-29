@@ -33,6 +33,6 @@ function drawGaugeChart($value) {
 }
 
 // Use the function
-echo drawGaugeChart(2.5);
+//echo drawGaugeChart(2.5);
 
 ?>
