@@ -75,11 +75,11 @@ if (isset($_POST["Login"])) {
                      </tr>
                      <tr>
                      <td>Your point</td>
-                     <td><?php echo $lp; ?></td>
+                     <td><?php echo $lp; echo drawGaugeChart($lp, "lp"); ?></td>
                      </tr>
                      <tr>
                      <td>AVG of the <b>Learning processes</b></td>
-                     <td><?php echo $LP_AVG ; //echo drawGaugeChart($LP_AVG); ?></td>
+                     <td><?php echo $LP_AVG ; echo drawGaugeChart($LP_AVG, "LP_AVG"); ?></td>
                      </tr>
                      <tr>
                      <td><b>Feedback</b> </td>
