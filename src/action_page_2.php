@@ -32,7 +32,6 @@ $recommendation = "You should consider taking the following courses to improve y
 if (isset($_POST["Login"])) {
        global $email;
        $email = $_POST['email'];
-       include 'db.php';
        $sql = "SELECT * FROM Sheet1 WHERE Email = '$email';";
        $result = $connection->query($sql);
        
@@ -432,6 +431,11 @@ if (isset($_POST["Login"])) {
                             echo drawGaugeChart($SD_AVG, "SD_AVG")
                             ?>
                      </td>
+                     <td><?php echo $SD; ?></td>
+                     </tr>
+                     <tr>
+                     <td>AVG of the <b> Sustainable development</b></td>
+                     <td><?php echo $SD_AVG ; ?></td>
                      </tr>
                      <tr>
                      <td><b>Feedback</b> </td>

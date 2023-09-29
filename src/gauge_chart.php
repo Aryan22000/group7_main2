@@ -31,3 +31,4 @@ function drawGaugeChart($value, $id) {
 //echo drawGaugeChart(2.5, "chart_div1");
 //echo drawGaugeChart(3.5, "chart_div2");
 ?>
+
