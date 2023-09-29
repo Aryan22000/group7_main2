@@ -1,16 +1,29 @@
-<?php include('header.php'); ?>
+<?php include('header.php'); include 'db.php'; include 'gauge_chart.php'; ?>
 <?php 
-$LP_AVG = 3.02;
-$LE_AVG = 3.04;
-$CD_AVG = 3.05;
-$INN_AVG = 3.02;
-$WB_AVG = 3.00;
-$PR_AVG = 2.97;
-$SD_AVG = 2.99;
-$DS_AVG = 3.00;
-$EN_AVG = 2.99;
-$CP_AVG = 3.05;
-$CO_AVG = 2.98;
+$sql = "SELECT AVG(LP) as LP_AVG, AVG(LE) as LE_AVG, AVG(PR) as PR_AVG, AVG(CD) as CD_AVG, AVG(CP) as CP_AVG,
+ AVG(EN) as EN_AVG, AVG(SD) as SD_AVG, AVG(CO) as CO_AVG, 
+AVG(DS) as DS_AVG, AVG(INN) as INN_AVG, AVG(WB) as WB_AVG FROM Sheet1";
+$result = $connection->query($sql);
+
+if ($result->num_rows > 0) {
+       while ($row = mysqli_fetch_assoc($result)) {
+$LP_AVG = $row['LP_AVG'];
+$LE_AVG = $row['LE_AVG'];
+$CD_AVG = $row['CD_AVG'];
+$INN_AVG = $row['INN_AVG'];
+$WB_AVG = $row['WB_AVG'];
+$PR_AVG = $row['PR_AVG'];
+$SD_AVG = $row['SD_AVG'];
+$DS_AVG = $row['DS_AVG'];
+$EN_AVG = $row['EN_AVG'];
+$CP_AVG = $row['CP_AVG'];
+$CO_AVG = $row['CO_AVG'];
+       
+       }
+} else {
+       echo "The data are not available";
+}
+
 $Feedback_good = "Keep up the good work, but consider focusing on areas where you lost points to improve your overall performance.";
 $Feedback_bad = "Your performance could benefit from addressing specific weaknesses in your understanding of the material, practicing more, and seeking clarification on challenging topics.";
 $recommendation = "You should consider taking the following courses to improve your performance in this area: ";
@@ -19,7 +32,6 @@ $recommendation = "You should consider taking the following courses to improve y
 if (isset($_POST["Login"])) {
        global $email;
        $email = $_POST['email'];
-       include 'db.php';
        $sql = "SELECT * FROM Sheet1 WHERE Email = '$email';";
        $result = $connection->query($sql);
        
@@ -67,7 +79,7 @@ if (isset($_POST["Login"])) {
                      </tr>
                      <tr>
                      <td>AVG of the <b>Learning processes</b></td>
-                     <td><?php echo $LP_AVG ; ?></td>
+                     <td><?php echo $LP_AVG ; //echo drawGaugeChart($LP_AVG); ?></td>
                      </tr>
                      <tr>
                      <td><b>Feedback</b> </td>
