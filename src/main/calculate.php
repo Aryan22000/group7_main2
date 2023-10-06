@@ -42,10 +42,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $connection->prepare("INSERT INTO Users (Email, Password, Name, Scope, Semester) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("sssss", $email, $password, $name, $scope, $semester);
 
-    // if (!$stmt->execute()) {
-    //     echo "Error inserting into Users: " . $stmt->error;
-    // }
-    // $stmt->close();
+    if (!$stmt->execute()) {
+        echo "Error inserting into Users: " . $stmt->error;
+    }
+    $stmt->close();
 
     // $sql = "INSERT INTO Users (Email, Password, Name, Scope, Semester) VALUES ('$email', '$password', '$name', '$scope', '$semester')";
 
@@ -75,10 +75,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $connection->prepare("INSERT INTO Questions (Email, Cat1, Cat2, Cat3, Cat4) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("sdddd", $email, $category1_avg, $category2_avg, $category3_avg, $category4_avg);
 
-    // if (!$stmt->execute()) {
-    //     echo "Error inserting into Questions: " . $stmt->error;
-    // }
-    // $stmt->close();
+    if (!$stmt->execute()) {
+        echo "Error inserting into Questions: " . $stmt->error;
+    }
+    $stmt->close();
     // $sql = "INSERT INTO Questions (Email, Cat1, Cat2, Cat3, Cat4) VALUES ('$email', $category1_avg, $category2_avg, $category3_avg, $category4_avg)";
     // if (!$connection->query($sql)) {
     //     echo "Error: " . $connection->error;
@@ -97,20 +97,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 <?php
-$sql = "SELECT AVG(Cat1) as Cat1_AVG, AVG(Cat2) as Cat2_AVG, AVG(Cat3) as Cat3_AVG, AVG(Cat4) as Cat4_AVG FROM Questions ";
+$sql = "
+SELECT 
+    AVG(Cat1) as Cat1_AVG, STDDEV(Cat1) as Cat1_STDDEV,
+    AVG(Cat2) as Cat2_AVG, STDDEV(Cat2) as Cat2_STDDEV,
+    AVG(Cat3) as Cat3_AVG, STDDEV(Cat3) as Cat3_STDDEV,
+    AVG(Cat4) as Cat4_AVG, STDDEV(Cat4) as Cat4_STDDEV
+FROM Questions";
 $result = $connection->query($sql);
 
 if ($result->num_rows > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        $Cat1_AVG = $row['Cat1_AVG'];
-        $Cat2_AVG = $row['Cat2_AVG'];
-        $Cat3_AVG = $row['Cat3_AVG'];
-        $Cat4_AVG = $row['Cat4_AVG'];
-
-    }
-} else {
-    echo "The data are not available";
+while ($row = mysqli_fetch_assoc($result)) {
+    $Cat1_AVG = $row['Cat1_AVG'];
+    $Cat1_STDDEV = $row['Cat1_STDDEV'];
+    
+    $Cat2_AVG = $row['Cat2_AVG'];
+    $Cat2_STDDEV = $row['Cat2_STDDEV'];
+    
+    $Cat3_AVG = $row['Cat3_AVG'];
+    $Cat3_STDDEV = $row['Cat3_STDDEV'];
+    
+    $Cat4_AVG = $row['Cat4_AVG'];
+    $Cat4_STDDEV = $row['Cat4_STDDEV'];
 }
+} else {
+echo "The data are not available";
+}
+
 
 $Feedback_good = "Keep up the good work, but consider focusing on areas where you lost points to improve your overall performance.";
 $Feedback_bad = "Your performance could benefit from addressing specific weaknesses in your understanding of the material, practicing more, and seeking clarification on challenging topics.";
@@ -143,7 +156,7 @@ $recommendation = "You should consider taking the following courses to improve y
             <td>
                 <?php echo $Cat1; ?>
                 <?php
-                echo drawGaugeChart($Cat1_AVG, 0.3, $Cat1, "cat1")
+                echo drawGaugeChart($Cat1_AVG, $Cat1_STDDEV, $Cat1, "cat1")
                     ?>
             </td>
         <tr>
@@ -159,7 +172,7 @@ $recommendation = "You should consider taking the following courses to improve y
                 }
                 ?>
         <tr>
-            <td><b>recommendation</b></td>
+            <td><b>Recommendation</b></td>
             <td>
                 <?php echo $recommendation; ?>
             </td>
@@ -195,7 +208,7 @@ $recommendation = "You should consider taking the following courses to improve y
                 <td>
                     <?php echo $Cat2; ?>
                     <?php
-                    echo drawGaugeChart($Cat2_AVG, 0.4, $Cat2, "cat2")
+                    echo drawGaugeChart($Cat2_AVG, $Cat2_STDDEV, $Cat2, "cat2")
                         ?>
                 </td>
             </tr>
@@ -212,7 +225,7 @@ $recommendation = "You should consider taking the following courses to improve y
                     }
                     ?>
             <tr>
-                <td><b>recommendation</b></td>
+                <td><b>Recommendation</b></td>
                 <td>
                     <?php echo $recommendation; ?>
                 </td>
@@ -249,7 +262,7 @@ $recommendation = "You should consider taking the following courses to improve y
                     <td>
                         <?php echo $Cat3; ?>
                         <?php
-                        echo drawGaugeChart($Cat3_AVG, 0.7, $Cat3, "cat3")
+                        echo drawGaugeChart($Cat3_AVG, $Cat3_STDDEV, $Cat3, "cat3")
                             ?>
                     </td>
                 </tr>
@@ -266,7 +279,7 @@ $recommendation = "You should consider taking the following courses to improve y
                         }
                         ?>
                 <tr>
-                    <td><b>recommendation</b></td>
+                    <td><b>Recommendation</b></td>
                     <td>
                         <?php echo $recommendation; ?>
                     </td>
@@ -302,7 +315,7 @@ $recommendation = "You should consider taking the following courses to improve y
                         <td>
                             <?php echo $Cat4; ?>
                             <?php
-                            echo drawGaugeChart($Cat4_AVG, 0.2, $Cat4, "cat4")
+                            echo drawGaugeChart($Cat4_AVG, $Cat4_STDDEV, $Cat4, "cat4")
                                 ?>
                         </td>
                     </tr>
@@ -319,7 +332,7 @@ $recommendation = "You should consider taking the following courses to improve y
                             }
                             ?>
                     <tr>
-                        <td><b>recommendation</b></td>
+                        <td><b>Recommendation</b></td>
                         <td>
                             <?php echo $recommendation; ?>
                         </td>
