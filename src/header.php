@@ -11,7 +11,7 @@
        <nav class="navbar bg-body-tertiary">
               <div class="container">
                      <a class="navbar-brand" href="index.php">
-                     <img src="image/hamk.png" alt="hamk " width="150" height="40">
+                     <img src="image/hamk.png" alt="hamk" width="150" height="40">
                      </a>
               </div>
        </nav>

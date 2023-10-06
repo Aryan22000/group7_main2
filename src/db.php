@@ -2,7 +2,7 @@
 $servername = "db";
 $username = "root";
 $password = "password";
-$dbname = "DF";
+$dbname = "project";
 
 // Creating connection
 $connection = new mysqli ($servername, $username, $password, $dbname);
