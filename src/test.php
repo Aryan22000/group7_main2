@@ -1,6 +1,9 @@
-
 <?php
-$to = 'elahekamali20@yahoo.com';
+
+ini_set("SMTP", "localhost");
+ini_set("sendmail_path", "/usr/bin/msmtp -t");
+
+$to = 'aliakbarkamali68@gmail.com';
 $subject = 'Test Email';
 $message = 'Hello, this is a test email from PHP.';
 $headers = 'From: group7designfactory@gmail.com' . "\r\n" .

@@ -1,9 +1,17 @@
 defaults
-auth off
-tls off
-syslog on
+auth on
+tls on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile ~/.msmtp.log
 
-account default
-host mailhog
-port 1025
+account gmail
+host smtp.gmail.com
+port 587
 from group7designfactory@gmail.com
+user group7designfactory@gmail.com
+#password feob kisy fefu dfun
+
+# Set a default account
+account default : gmail
+
+

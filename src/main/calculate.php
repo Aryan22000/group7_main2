@@ -24,8 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $scope = $_POST['scope'];
     $semester = $_POST['semester'];
     $subject = "Your New Password";
-    $message = "Hello " . $name . ",\n\nYour generated password is: " . $password . "\n\nRegards,\nAliakbar Kamali";
-    $headers = "From: admin@yourwebsite.com"; // replace this with your own email
+    $message = "Hello " . $name . ",\n\nYour generated password is: " . $password . "\n\nRegards,\nGroup7 - Design Factory";
+    $headers = "From: group7designfactory@gmail.com"; // replace this with your own email
 
     // Send the email
     if (mail($email, $subject, $message, $headers)) {
