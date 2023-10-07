@@ -23,6 +23,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $scope = $_POST['scope'];
     $semester = $_POST['semester'];
+    $subject = "Your New Password";
+    $message = "Hello " . $name . ",\n\nYour generated password is: " . $password . "\n\nRegards,\nAliakbar Kamali";
+    $headers = "From: admin@yourwebsite.com"; // replace this with your own email
+
+    // Send the email
+    if (mail($email, $subject, $message, $headers)) {
+        echo "Password sent to email!";
+    } else {
+        echo "Failed to send email.";
+    }
     ?>
     <h1>
         <?php

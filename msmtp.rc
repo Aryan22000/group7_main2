@@ -1,0 +1,9 @@
+defaults
+auth off
+tls off
+syslog on
+
+account default
+host mailhog
+port 1025
+from group7designfactory@gmail.com

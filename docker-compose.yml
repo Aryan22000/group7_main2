@@ -8,9 +8,11 @@ services:
       - 81:80
     volumes:
       - ./src:/var/www/html/
-    restart : always
+    restart: always
     networks:
       - lan
+    depends_on:
+      - mailhog
       
   db: # mysql database server
     image: mysql:latest
@@ -35,10 +37,18 @@ services:
       PMA_HOST: db
     networks:
       - lan 
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
+    networks:
+      - lan
 
-  
 volumes:
   dbdata:
+
 networks:
-  lan:
-  
+  lan:  
+#docker-compose down
+#docker-compose build
+#docker-compose up -d
